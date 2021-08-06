@@ -2,8 +2,10 @@
 <h1>Handicaps</h1>
  <div v-for="handicap in handicaps" :key="handicap.id">
    <router-link :to="{
-     name: 'handicaps',
-     params: handicap.id
+     name: 'HandicapDetails',
+     params: {
+       id: handicap.id
+     }
    }">{{ handicap.name }}</router-link>
  </div>
   <router-view></router-view>
