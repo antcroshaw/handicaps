@@ -6,7 +6,18 @@
   </div>
   <router-view/>
 </template>
-
+<script>
+export default {
+  provide () {
+    return {
+      handicaps: [
+        { id: 1, name: 'york' },
+        { id: 2, name: 'western' }
+      ]
+    }
+  }
+}
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

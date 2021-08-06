@@ -10,14 +10,7 @@
 </template>
 <script>
 export default {
-  data () {
-    return {
-      handicaps: [
-        { id: 1, name: 'york' },
-        { id: 2, name: 'western' }
-      ]
-    }
-  }
+  inject: ['handicaps']
 }
 </script>
 <style scoped>
