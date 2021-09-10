@@ -11,9 +11,8 @@ export default {
   provide () {
     return {
       handicaps: [
-        { id: 1, name: 'york' },
-        { id: 2, name: 'western' }
-      ]
+        { id: 1, name: 'york', scores: [45, 47, 48] },
+        { id: 2, name: 'western', scores: [12, 14, 15] }]
     }
   }
 }
