@@ -4,8 +4,11 @@
   <div v-for="handicap in handicaps" :key="handicap.id">
     <div v-if="handicap.id == id">
     Name: {{ handicap.name }}
-    Scores: {{ handicap.scores }}</div>
-  </div>
+      <div v-for="(score,index) in handicap.scores" :key="index">
+        <p> {{ score }} <button @click="increaseScore(index)">+</button><button>-</button></p>
+      </div>
+    </div>
+    </div>
 </template>
 
 <script>
@@ -20,6 +23,11 @@ export default {
   inject: ['handicaps'],
   created (id) {
     console.log(this.handicaps)
+  },
+  methods: {
+    increaseScore (index) {
+      console.log(index)
+    }
   }
 }
 </script>
