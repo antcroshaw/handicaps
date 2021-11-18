@@ -25,5 +25,15 @@ export default {
     handicaps (state) {
       return state.handicaps
     }
+  },
+  mutations: {
+    increaseScore (state, index) {
+      console.log(index)
+    }
+  },
+  actions: {
+    increaseScore (context, index) {
+      context.commit('increaseScore', index)
+    }
   }
 }
