@@ -12,7 +12,12 @@
 </template>
 <script>
 export default {
-  inject: ['handicaps']
+  computed: {
+    handicaps () {
+      return this.$store.getters['handicaps/handicaps']
+    }
+
+  }
 }
 </script>
 <style scoped>

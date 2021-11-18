@@ -14,22 +14,18 @@
 <script>
 export default {
   props: ['id'],
-  data () {
-    return {
-      scores: '',
-      handicap: []
-    }
-  },
-  inject: ['handicaps'],
-  created (id) {
-    console.log(this.handicaps)
-  },
-  methods: {
-    increaseScore (index) {
-      console.log(index)
+  computed: {
+    handicaps () {
+      return this.$store.getters['handicaps/handicaps']
+    },
+    methods: {
+      increaseScore (index) {
+        console.log(index)
+      }
     }
   }
 }
+
 </script>
 
 <style scoped>

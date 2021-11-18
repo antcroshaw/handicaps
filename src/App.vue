@@ -8,13 +8,14 @@
 </template>
 <script>
 export default {
-  provide () {
-    return {
-      handicaps: [
-        { id: 1, name: 'york', scores: [45, 47, 48] },
-        { id: 2, name: 'western', scores: [12, 14, 15] }]
-    }
-  }
+  // provide () {
+  //   return {
+  //     handicaps: [
+  //       { id: 1, name: 'york', scores: [45, 47, 48] },
+  //       { id: 2, name: 'western', scores: [12, 14, 15] }]
+  //   }
+  // }
+
 }
 </script>
 <style>
