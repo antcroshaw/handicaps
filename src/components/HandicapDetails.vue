@@ -21,9 +21,8 @@ export default {
   },
   methods: {
     increaseScore (index, name) {
-      this.$store.dispatch('changeHandicap', name)
-      console.log(this.$store.getters.handicapName)
-      this.$store.dispatch('handicaps/increaseScore', index)
+      console.log('Name:' + name)
+      console.log('Index:' + index)
     }
   }
 }
