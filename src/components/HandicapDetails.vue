@@ -5,7 +5,7 @@
     <div v-if="handicap.id === id">
     Name: {{ handicap.name }}
       <div v-for="(score,index) in handicap.scores" :key="index">
-        <p> {{ score }} <button @click="increaseScore(index,handicap.name)">+</button><button>-</button></p>
+        <p> {{ score }} <button @click="increaseScore(index,handicap.name)">+</button><button @click="decreaseScore(index,handicap.name)">-</button></p>
       </div>
     </div>
     </div>
@@ -14,6 +14,14 @@
 <script>
 export default {
   props: ['id'],
+  data () {
+    return {
+      payload: {
+        name: '',
+        index: null
+      }
+    }
+  },
   computed: {
     handicaps () {
       return this.$store.getters['handicaps/handicaps']
@@ -21,8 +29,14 @@ export default {
   },
   methods: {
     increaseScore (index, name) {
-      console.log('Name:' + name)
-      console.log('Index:' + index)
+      this.payload.name = name
+      this.payload.index = index
+      this.$store.dispatch('handicaps/addOneToScore', this.payload)
+    },
+    decreaseScore (index, name) {
+      this.payload.name = name
+      this.payload.index = index
+      this.$store.dispatch('handicaps/subtractOneFromScore', this.payload)
     }
   }
 }

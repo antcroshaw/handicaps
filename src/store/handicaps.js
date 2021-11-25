@@ -25,5 +25,23 @@ export default {
     handicaps (state) {
       return state.handicaps
     }
+  },
+  mutations: {
+    addOneToScore (state, payload) {
+      const item = state.handicaps.find(item => item.name === payload.name)
+      return item.scores[payload.index]++
+    },
+    subtractOneFromScore (state, payload) {
+      const item = state.handicaps.find(item => item.name === payload.name)
+      return item.scores[payload.index]--
+    }
+  },
+  actions: {
+    addOneToScore (context, payload) {
+      context.commit('addOneToScore', payload)
+    },
+    subtractOneFromScore (context, payload) {
+      context.commit('subtractOneFromScore', payload)
+    }
   }
 }
