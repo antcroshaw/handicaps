@@ -34,6 +34,14 @@ export default {
     subtractOneFromScore (state, payload) {
       const item = state.handicaps.find(item => item.name === payload.name)
       return item.scores[payload.index]--
+    },
+    addNewHandicap (state, newHandicap) {
+      const item = state.handicaps.find(item => item.name === newHandicap.name)
+      return item.scores.push(newHandicap.value)
+    },
+    deleteHandicap (state, payload) {
+      const item = state.handicaps.find(item => item.name === payload.name)
+      return item.scores.splice(payload.index, 1)
     }
   },
   actions: {
@@ -42,6 +50,12 @@ export default {
     },
     subtractOneFromScore (context, payload) {
       context.commit('subtractOneFromScore', payload)
+    },
+    addNewHandicap (context, newHandicap) {
+      context.commit('addNewHandicap', newHandicap)
+    },
+    deleteHandicap (context, payload) {
+      context.commit('deleteHandicap', payload)
     }
   }
 }
