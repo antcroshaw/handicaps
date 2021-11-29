@@ -42,6 +42,14 @@ export default {
     deleteHandicap (state, payload) {
       const item = state.handicaps.find(item => item.name === payload.name)
       return item.scores.splice(payload.index, 1)
+    },
+    addNewHandicapName (state, name) {
+      // first need to work out the max id, we need the id values from all the handicaps
+      const ids = state.handicaps.map(user => state.handicaps.id)
+      const sorted = ids.sort((a, b) => a - b)
+      const id = sorted.length + 1
+      const newHandicap = { id: id, name: name, scores: [] }
+      return state.handicaps.push(newHandicap)
     }
   },
   actions: {
@@ -56,6 +64,9 @@ export default {
     },
     deleteHandicap (context, payload) {
       context.commit('deleteHandicap', payload)
+    },
+    addNewHandicapName (context, name) {
+      context.commit('addNewHandicapName', name)
     }
   }
 }

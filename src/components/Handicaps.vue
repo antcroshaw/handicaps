@@ -9,6 +9,14 @@
    }">{{ handicap.name }}</router-link>
  </div>
   <router-view></router-view>
+  <form @submit.prevent="submitForm">
+    <div class="form-group">
+      <label for="addHandicapName">Add Handicap Name: </label>
+      <input class="text" name="addHandicapName" id="addHandicapName" v-model="newHandicapName"/>
+      <button type="submit" @click="addHandicapName(newHandicapName)">Add</button>
+    </div>
+
+  </form>
 </template>
 <script>
 export default {
@@ -17,6 +25,16 @@ export default {
       return this.$store.getters['handicaps/handicaps']
     }
 
+  },
+  data () {
+    return {
+      newHandicapName: ''
+    }
+  },
+  methods: {
+    addHandicapName () {
+      this.$store.dispatch('handicaps/addNewHandicapName', this.newHandicapName)
+    }
   }
 }
 </script>
