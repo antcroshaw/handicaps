@@ -47,8 +47,8 @@ export default {
       // first need to work out the max id, we need the id values from all the handicaps
       const ids = state.handicaps.map(user => state.handicaps.id)
       const sorted = ids.sort((a, b) => a - b)
-      const id = sorted.length + 1
-      const newHandicap = { id: id, name: name, scores: [] }
+      const id = String(sorted.length + 1)
+      const newHandicap = { id: id, name: name, scores: [1, 1, 1] }
       return state.handicaps.push(newHandicap)
     }
   },
