@@ -1,15 +1,16 @@
 <template>
 <h1>Handicap Details</h1>
-  <p>The handicap id is : {{ id }}</p>
+  <p><button @click="showDialog" v-if="!dialogIsVisible">Edit</button><button @click="hideDialog" v-if="dialogIsVisible">Done</button></p>
   <div v-for="handicap in handicaps" :key="handicap.id">
     <div v-if="handicap.id === id">
     Name: {{ handicap.name }}
       <div v-for="(score,index) in handicap.scores" :key="index">
-        <p> {{ score }} <button @click="increaseScore(index,handicap.name)">+</button><button @click="decreaseScore(index,handicap.name)">-</button>
-        <button @click="deleteHandicap(index,handicap.name)">Delete</button></p>
+        <p> {{ score }} <button @click="increaseScore(index,handicap.name)" v-if="dialogIsVisible">+
+        </button><button @click="decreaseScore(index,handicap.name)" v-if="dialogIsVisible">-</button>
+        <button @click="deleteHandicap(index,handicap.name)" v-if="dialogIsVisible">Delete</button></p>
       </div>
-      <div>
-        <form @submit.prevent="submitForm">
+      <div class="block" :class="{animate: animatedBlock}">
+        <form @submit.prevent="submitForm" v-if="dialogIsVisible">
           <div class="form-group">
             <label for="addHandicap">Add Handicap: </label>
             <input class="text" name="addHandicap" id="addHandicap" v-model="newHandicap.value"/>
@@ -35,7 +36,9 @@ export default {
       newHandicap: {
         value: '',
         name: ''
-      }
+      },
+      animatedBlock: false,
+      dialogIsVisible: false
     }
   },
   computed: {
@@ -44,6 +47,9 @@ export default {
     }
   },
   methods: {
+    showEdit () {
+      this.showEditControls = !this.showEditControls
+    },
     increaseScore (index, name) {
       this.payload.name = name
       this.payload.index = index
@@ -62,11 +68,22 @@ export default {
       this.payload.name = name
       this.payload.index = index
       this.$store.dispatch('handicaps/deleteHandicap', this.payload)
+    },
+    animateBlock () {
+      this.animatedBlock = true
+    },
+    showDialog () {
+      this.dialogIsVisible = true
+    },
+    hideDialog () {
+      this.dialogIsVisible = false
     }
   }
 }
 </script>
 
 <style scoped>
-
+.block {
+  transition: transform 0.6s ease-out
+}
 </style>
