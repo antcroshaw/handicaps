@@ -5,20 +5,19 @@
     <div v-if="handicap.id === id">
     Name: {{ handicap.name }}
       <div v-for="(score,index) in handicap.scores" :key="index">
-        <p> {{ score }} <button @click="increaseScore(index,handicap.name)" v-if="dialogIsVisible">+
+        <p> {{ score }} <transition-group name="fade"><button @click="increaseScore(index,handicap.name)" v-if="dialogIsVisible">+
         </button><button @click="decreaseScore(index,handicap.name)" v-if="dialogIsVisible">-</button>
-        <button @click="deleteHandicap(index,handicap.name)" v-if="dialogIsVisible">Delete</button></p>
+        <button @click="deleteHandicap(index,handicap.name)" v-if="dialogIsVisible">Delete</button></transition-group></p>
       </div>
-      <div class="block" :class="{animate: animatedBlock}">
-        <form @submit.prevent="submitForm" v-if="dialogIsVisible">
-          <div class="form-group">
+      <transition-group name="fade">
+      <div class="form-group" v-if="dialogIsVisible">
+        <form @submit.prevent="submitForm">
             <label for="addHandicap">Add Handicap: </label>
             <input class="text" name="addHandicap" id="addHandicap" v-model="newHandicap.value"/>
             <button type="submit" @click="addHandicap(handicap.name)" >Add</button>
-          </div>
-
         </form>
       </div>
+      </transition-group>
     </div>
     </div>
 </template>
@@ -83,7 +82,11 @@ export default {
 </script>
 
 <style scoped>
-.block {
-  transition: transform 0.6s ease-out
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s ease-out;
+}
+
+.fade-enter, .fade-leave-to {
+  transition: opacity 0.5s ease-in;
 }
 </style>
