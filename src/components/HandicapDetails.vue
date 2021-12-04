@@ -2,12 +2,11 @@
 <h1>Handicap Details</h1>
   <p><button @click="showDialog" v-if="!dialogIsVisible">Edit</button><button @click="hideDialog" v-if="dialogIsVisible">Done</button></p>
   <div v-for="handicap in handicaps" :key="handicap.id">
-    <div v-if="handicap.id === id">
-    Name: {{ handicap.name }}
-      <div v-for="(score,index) in handicap.scores" :key="index">
-        <p> {{ score }} <transition-group name="fade"><button @click="increaseScore(index,handicap.name)" v-if="dialogIsVisible">+
-        </button><button @click="decreaseScore(index,handicap.name)" v-if="dialogIsVisible">-</button>
-        <button @click="deleteHandicap(index,handicap.name)" v-if="dialogIsVisible">Delete</button></transition-group></p>
+    <div v-if="handicap.id === id" >
+      <table id="scores"><th> Name: {{ handicap.name }}</th><tr v-for="(score,index) in handicap.scores" :key="index">
+          <td>{{ score }}</td><td><button @click="increaseScore(index,handicap.name)" v-if="dialogIsVisible">+
+        </button><base-button @click="decreaseScore(index,handicap.name)" v-if="dialogIsVisible">-</base-button>
+          <button @click="deleteHandicap(index,handicap.name)" v-if="dialogIsVisible">Delete</button></td></tr></table>
       </div>
       <transition-group name="fade">
       <div class="form-group" v-if="dialogIsVisible">
@@ -19,11 +18,12 @@
       </div>
       </transition-group>
     </div>
-    </div>
 </template>
 
 <script>
+import BaseButton from "./ui/BaseButton";
 export default {
+  components: {BaseButton},
   props: ['id'],
   data () {
     return {
@@ -88,5 +88,9 @@ export default {
 
 .fade-enter, .fade-leave-to {
   transition: opacity 0.5s ease-in;
+}
+#scores {
+  text-align: center;
+  border: solid;
 }
 </style>
