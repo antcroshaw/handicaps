@@ -1,29 +1,30 @@
 <template>
 <h1>Handicap Details</h1>
-  <p><button @click="showDialog" v-if="!dialogIsVisible">Edit</button><button @click="hideDialog" v-if="dialogIsVisible">Done</button></p>
+  <base-card>
+  <p><base-button @click="showDialog" v-if="!dialogIsVisible">Edit</base-button><button @click="hideDialog" v-if="dialogIsVisible">Done</button></p>
   <div v-for="handicap in handicaps" :key="handicap.id">
     <div v-if="handicap.id === id" >
-      <table id="scores"><th> Name: {{ handicap.name }}</th><tr v-for="(score,index) in handicap.scores" :key="index">
+      <table id="scores"><th id="table-heading">{{ handicap.name }}</th><tr v-for="(score,index) in handicap.scores" :key="index">
           <td>{{ score }}</td><td><button @click="increaseScore(index,handicap.name)" v-if="dialogIsVisible">+
-        </button><base-button @click="decreaseScore(index,handicap.name)" v-if="dialogIsVisible">-</base-button>
+        </button><button @click="decreaseScore(index,handicap.name)" v-if="dialogIsVisible">-</button>
           <button @click="deleteHandicap(index,handicap.name)" v-if="dialogIsVisible">Delete</button></td></tr></table>
       </div>
-      <transition-group name="fade">
-      <div class="form-group" v-if="dialogIsVisible">
-        <form @submit.prevent="submitForm">
-            <label for="addHandicap">Add Handicap: </label>
-            <input class="text" name="addHandicap" id="addHandicap" v-model="newHandicap.value"/>
-            <button type="submit" @click="addHandicap(handicap.name)" >Add</button>
-        </form>
-      </div>
-      </transition-group>
     </div>
+    <div class="form-group" v-if="dialogIsVisible">
+      <form @submit.prevent="submitForm">
+        <label for="addHandicap">Add Handicap: </label>
+        <input class="text" name="addHandicap" id="addHandicap" v-model="newHandicap.value"/>
+        <button type="submit" @click="addHandicap(handicap.name)" >Add</button>
+      </form>
+    </div>
+  </base-card>
 </template>
 
 <script>
-import BaseButton from "./ui/BaseButton";
+import BaseButton from './ui/BaseButton'
+import BaseCard from './ui/BaseCard'
 export default {
-  components: {BaseButton},
+  components: { BaseCard, BaseButton },
   props: ['id'],
   data () {
     return {
@@ -82,15 +83,13 @@ export default {
 </script>
 
 <style scoped>
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 0.5s ease-out;
-}
-
-.fade-enter, .fade-leave-to {
-  transition: opacity 0.5s ease-in;
-}
 #scores {
+  margin: 0 auto; /* or margin: 0 auto 0 auto */
   text-align: center;
-  border: solid;
+  border: none;
+}
+#table-heading {
+  text-align: center;
+
 }
 </style>
