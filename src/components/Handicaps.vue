@@ -4,7 +4,8 @@
    <router-link :to="{
      name: 'HandicapDetails',
      params: {
-       id: handicap.id
+       id: handicap.id,
+       name: handicap.name
      }
    }">{{ handicap.name }}</router-link>
  </div>
