@@ -15,6 +15,8 @@
       <label for="addHandicapName">Add Handicap Name: </label>
       <input class="text" name="addHandicapName" id="addHandicapName" v-model="newHandicapName"/>
       <button type="submit" @click="addHandicapName(newHandicapName)">Add</button>
+      <p class="errors" v-if="!formIsValid">Please enter a valid and non-empty name</p>
+
     </div>
 
   </form>
@@ -29,16 +31,26 @@ export default {
   },
   data () {
     return {
-      newHandicapName: ''
+      newHandicapName: '',
+      formIsValid: true
     }
   },
   methods: {
     addHandicapName () {
+      this.formIsValid = true
+      if (this.newHandicapName === '') {
+        this.formIsValid = false
+        return
+      }
       this.$store.dispatch('handicaps/addNewHandicapName', this.newHandicapName)
     }
   }
 }
 </script>
 <style scoped>
+.errors {
+  font-weight: bold;
+  color: red;
+}
 
 </style>

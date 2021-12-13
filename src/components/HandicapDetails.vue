@@ -15,6 +15,7 @@
         <label for="addHandicap">Add Handicap: </label>
         <input class="text" name="addHandicap" id="addHandicap" v-model="newHandicap.value"/>
         <button type="submit" @click="addHandicap(name)">Add</button>
+        <p class="errors" v-if="!formIsValid">Please enter a valid and non empty handicap</p>
       </form>
     </div>
   </base-card>
@@ -38,7 +39,8 @@ export default {
         name: ''
       },
       animatedBlock: false,
-      dialogIsVisible: false
+      dialogIsVisible: false,
+      formIsValid: true
     }
   },
   computed: {
@@ -61,6 +63,11 @@ export default {
       this.$store.dispatch('handicaps/subtractOneFromScore', this.payload)
     },
     addHandicap (name) {
+      this.formIsValid = true
+      if (this.newHandicap.value < 1 || this.newHandicap.value === '') {
+        this.formIsValid = false
+        return
+      }
       this.newHandicap.name = name
       this.$store.dispatch('handicaps/addNewHandicap', this.newHandicap)
     },
@@ -92,4 +99,9 @@ export default {
   text-align: center;
 
 }
+.errors {
+  font-weight: bold;
+  color: red;
+}
+
 </style>
