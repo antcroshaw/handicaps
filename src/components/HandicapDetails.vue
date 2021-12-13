@@ -1,15 +1,23 @@
 <template>
-<h1>Handicap Details</h1>
+  <h1>Handicap Details</h1>
   <base-card>
-  <p><base-button @click="showDialog" v-if="!dialogIsVisible">Edit</base-button><button @click="hideDialog" v-if="dialogIsVisible">Done</button></p>
-  <div v-for="handicap in handicaps" :key="handicap.id">
-    <div v-if="handicap.id === id" >
-      <table id="scores"><th id="table-heading">{{ handicap.name }}</th><tr v-for="(score,index) in handicap.scores" :key="index">
-         <td>Handicap: {{ index+1 }}</td> <td>Score: {{ score }}</td><td><button @click="increaseScore(index,handicap.name)" v-if="dialogIsVisible">+
-        </button><button @click="decreaseScore(index,handicap.name)" v-if="dialogIsVisible">-</button>
-          <button @click="deleteHandicap(index,handicap.name)" v-if="dialogIsVisible">Delete</button></td></tr></table>
-      </div>
-    </div>
+    <p>
+      <base-button @click="showDialog" v-if="!dialogIsVisible">Edit</base-button>
+      <button @click="hideDialog" v-if="dialogIsVisible">Done</button>
+    </p>
+    <table id="scores">
+      <th id="table-heading">{{ handicapsById(id).name }}</th>
+      <tr v-for="(score,index) in handicapsById(id).scores" :key="index">
+        <td>Handicap: {{ index + 1 }}</td>
+        <td>Score: {{ score }}</td>
+        <td>
+          <button @click="increaseScore(index,handicapsById(id).name)" v-if="dialogIsVisible">+
+          </button>
+          <button @click="decreaseScore(index,handicapsById(id).name)" v-if="dialogIsVisible">-</button>
+          <button @click="deleteHandicap(index,handicapsById(id).name)" v-if="dialogIsVisible">Delete</button>
+        </td>
+      </tr>
+    </table>
     <div class="form-group" v-if="dialogIsVisible">
       <form @submit.prevent="submitForm">
         <label for="addHandicap">Add Handicap: </label>
@@ -24,6 +32,7 @@
 <script>
 import BaseButton from './ui/BaseButton'
 import BaseCard from './ui/BaseCard'
+
 export default {
   components: { BaseCard, BaseButton },
   props: ['id', 'name'],
@@ -44,14 +53,11 @@ export default {
     }
   },
   computed: {
-    handicaps () {
-      return this.$store.getters['handicaps/handicaps']
+    handicapsById () {
+      return this.$store.getters['handicaps/getHandicapById']
     }
   },
   methods: {
-    showEdit () {
-      this.showEditControls = !this.showEditControls
-    },
     increaseScore (index, name) {
       this.payload.name = name
       this.payload.index = index
@@ -70,6 +76,7 @@ export default {
       }
       this.newHandicap.name = name
       this.$store.dispatch('handicaps/addNewHandicap', this.newHandicap)
+      this.newHandicap.value = ''
     },
     deleteHandicap (index, name) {
       this.payload.name = name
@@ -95,10 +102,12 @@ export default {
   text-align: center;
   border: none;
 }
+
 #table-heading {
   text-align: center;
 
 }
+
 .errors {
   font-weight: bold;
   color: red;

@@ -5,7 +5,7 @@
      name: 'HandicapDetails',
      params: {
        id: handicap.id,
-       name: handicap.name
+       name: handicap.name,
      }
    }">{{ handicap.name }}</router-link>
  </div>
@@ -43,6 +43,7 @@ export default {
         return
       }
       this.$store.dispatch('handicaps/addNewHandicapName', this.newHandicapName)
+      this.newHandicapName = ''
     }
   }
 }
