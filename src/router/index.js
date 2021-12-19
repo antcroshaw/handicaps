@@ -3,6 +3,7 @@ import Home from '../components/Home'
 import Handicaps from '../components/Handicaps'
 import About from '../components/About'
 import HandicapDetails from '../components/HandicapDetails'
+import Categories from '../components/Categories'
 
 const routes = [
   {
@@ -14,6 +15,12 @@ const routes = [
     path: '/handicaps',
     name: 'handicaps',
     component: Handicaps,
+    props: true
+  },
+  {
+    path: '/categories',
+    name: 'categories',
+    component: Categories,
     props: true
   },
   {

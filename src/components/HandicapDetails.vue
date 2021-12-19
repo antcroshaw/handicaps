@@ -35,7 +35,7 @@ import BaseCard from './ui/BaseCard'
 
 export default {
   components: { BaseCard, BaseButton },
-  props: ['id', 'name'],
+  props: ['name'],
   data () {
     return {
       // this is required as you cannot send more than one item of data in an action call
@@ -55,6 +55,9 @@ export default {
   computed: {
     handicapsById () {
       return this.$store.getters['handicaps/getHandicapById']
+    },
+    id () {
+      return this.$route.params.id
     }
   },
   methods: {

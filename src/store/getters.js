@@ -4,5 +4,8 @@ export default {
   },
   getHandicapById: (state) => (id) => {
     return state.handicaps.find(handicaps => handicaps.id === id)
+  },
+  categories (state) {
+    return state.categories
   }
 }
