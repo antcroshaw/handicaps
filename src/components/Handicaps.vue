@@ -1,6 +1,6 @@
 <template>
 <h1>Handicaps</h1>
- <div v-for="handicap in handicaps" :key="handicap.id">
+ <div v-for="handicap in handicapsByCategoryId(id)" :key="handicap.id">
    <router-link :to="{
      name: 'HandicapDetails',
      params: {
@@ -18,7 +18,6 @@
       <p class="errors" v-if="!formIsValid">Please enter a valid and non-empty name</p>
 
     </div>
-
   </form>
 </template>
 <script>
@@ -26,6 +25,12 @@ export default {
   computed: {
     handicaps () {
       return this.$store.getters['handicaps/handicaps']
+    },
+    handicapsByCategoryId () {
+      return this.$store.getters['handicaps/getHandicapByCategoryId']
+    },
+    id () {
+      return this.$route.params.id
     }
 
   },

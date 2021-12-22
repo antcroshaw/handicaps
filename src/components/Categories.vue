@@ -1,17 +1,13 @@
 <template>
   <h1>Categories</h1>
-  <ul>
-    <li v-for="category in categories" :key="category.id"> {{ category.name }}</li>
-  </ul>
-<!--  <div v-for="handicap in handicaps" :key="handicap.id">-->
-<!--    <router-link :to="{-->
-<!--     name: 'HandicapDetails',-->
-<!--     params: {-->
-<!--       id: handicap.id,-->
-<!--       name: handicap.name,-->
-<!--     }-->
-<!--   }">{{ handicap.name }}</router-link>-->
-<!--  </div>-->
+  <div v-for="category in categories" :key="category.id">
+    <router-link :to="{
+     name: 'handicaps',
+     params: {
+       id: category.id
+     }
+   }">{{ category.name }}</router-link>
+  </div>
   <router-view></router-view>
 <!--  <form @submit.prevent="submitForm">-->
 <!--    <div class="form-group">-->
