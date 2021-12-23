@@ -11,7 +11,7 @@ export default {
   deleteHandicap (context, payload) {
     context.commit('deleteHandicap', payload)
   },
-  addNewHandicapName (context, name) {
-    context.commit('addNewHandicapName', name)
+  addNewHandicapName (context, payload) {
+    context.commit('addNewHandicapName', payload)
   }
 }

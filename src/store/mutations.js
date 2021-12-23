@@ -15,12 +15,13 @@ export default {
     const item = state.handicaps.find(item => item.name === payload.name)
     return item.scores.splice(payload.index, 1)
   },
-  addNewHandicapName (state, name) {
+  addNewHandicapName (state, payload) {
     // first need to work out the max id, we need the id values from all the handicaps
+    const categoryId = payload.id
     const ids = state.handicaps.map(user => state.handicaps.id)
     const sorted = ids.sort((a, b) => a - b)
     const id = String(sorted.length + 1)
-    const newHandicap = { id: id, name: name, scores: [1, 1, 1] }
+    const newHandicap = { id: id, categoryId: categoryId, name: payload.name, scores: [1, 1, 1] }
     return state.handicaps.push(newHandicap)
   }
 }

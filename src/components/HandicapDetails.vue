@@ -26,6 +26,11 @@
         <p class="errors" v-if="!formIsValid">Please enter a valid and non empty handicap</p>
       </form>
     </div>
+    <router-link :to="{
+     name: 'categories',
+     params: {
+     id: id
+     }}" >Back to Categories</router-link>
   </base-card>
 </template>
 

@@ -47,7 +47,11 @@ export default {
         this.formIsValid = false
         return
       }
-      this.$store.dispatch('handicaps/addNewHandicapName', this.newHandicapName)
+      const payload = {
+        name: this.newHandicapName,
+        id: this.id
+      }
+      this.$store.dispatch('handicaps/addNewHandicapName', payload)
       this.newHandicapName = ''
     }
   }
